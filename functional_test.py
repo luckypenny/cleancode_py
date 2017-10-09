@@ -2,12 +2,20 @@ from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.common.keys import Keys
 import unittest
-
+import platform
 
 class NewVisitorTest(unittest.TestCase):
 
     def setUp(self):
-        binary = FirefoxBinary('C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe')
+
+        print("Platform : ", platform.system())
+
+        binary = None
+        if platform.system() == "Windows":
+            binary = FirefoxBinary('C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe')
+        else:
+            binary = FirefoxBinary('/usr/bin/firefox')
+
         self.browser = webdriver.Firefox(firefox_binary=binary)
         self.browser.implicitly_wait(3)
 
