@@ -24,12 +24,23 @@ class HomePageTest(TestCase):
         request.method = 'POST'
         request.POST['item_text'] = '신규 작업 아이템'
         response = home_page(request)
+
+        self.assertEqual(Item.objects.count(), 1) #신규 아이템이 database.objects.count()에 저장된 것을 확인한다.
+        new_item = Item.objects.first() #objects.first()는 objects.all()[0]과 같은 처리다.
+        self.assertEqual(new_item.text, '신규 작업 아이템') #아이템 텍스트가 같은지 확인한다.
+        self.assertEqual(Item.objects.count(), 1)
+
         self.assertIn('신규 작업 아이템', response.content.decode())
         expected_html = render_to_string(
             'home.html',
             {'new_item_text': '신규 작업 아이템'}
         )
         self.assertEqual(response.content.decode(), expected_html)
+
+    def test_home_page_only_saves_items_when_necessary(self):
+        request = HttpRequest()
+        home_page(request)
+        self.assertEqual(Item.objects.count(), 0)
 
 
 class ItemModelTest(TestCase):
