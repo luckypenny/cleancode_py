@@ -22,7 +22,7 @@ class NewVisitorTest(unittest.TestCase):
 
         # # 크롬으로 변경
         self.browser = webdriver.Chrome('C:\Dev\web_driver\chromedriver.exe')
-        time.sleep(5)
+        time.sleep(3)
 
     def tearDown(self):
         self.browser.quit()
@@ -66,7 +66,7 @@ class NewVisitorTest(unittest.TestCase):
 
         # 페이지는 다시 갱신되고, 두 개 아이템이 목록에 보인다. 
         self.check_for_row_in_list_table('2: 공작깃털을 이용해서 그물 만들기')
-        self.check_for_row_in_list_table('1: 공작기털 사기')
+        self.check_for_row_in_list_table('1: 공작깃털 사기')
 
         # 에디스는 사이트가 입력한 목록을 저장하고 있는지 궁금하다.
         # 사이트는 그녀를 위한 특정 URL을 생성해 준다.
